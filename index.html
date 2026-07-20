@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#0a0e27">
+    <title>Faisal TV - تطبيق البث المباشر</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="logo-splash">
+                <span class="logo-text-splash">Faisal</span>
+                <span class="logo-tv-splash">TV</span>
+                <i class="fas fa-crown"></i>
+            </div>
+            <div class="loader"></div>
+            <p class="loading-text">جاري التحميل...</p>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div class="app-container" id="appContainer" style="display: none;">
+        
+        <!-- Header Section -->
+        <header class="header">
+            <div class="header-left">
+                <button class="icon-btn" id="searchBtn" title="بحث">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="icon-btn" id="refreshBtn" title="تحديث">
+                    <i class="fas fa-sync"></i>
+                </button>
+                <button class="icon-btn" id="themeBtn" title="إضاءة">
+                    <i class="fas fa-sun"></i>
+                </button>
+            </div>
+            
+            <div class="logo">
+                <span class="logo-text">Faisal</span>
+                <span class="logo-tv">TV</span>
+                <i class="fas fa-crown"></i>
+            </div>
+            
+            <div class="header-right">
+                <a href="https://t.me/FAISALDz44" target="_blank" class="telegram-btn" title="قناتنا على تليجرام">
+                    <i class="fab fa-telegram"></i>
+                    <span>@FAISALDz44</span>
+                </a>
+                <button class="icon-btn" id="menuBtn" title="الإعدادات">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Search Panel -->
+        <div class="search-panel" id="searchPanel">
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="ابحث عن القنوات والأفلام...">
+                <button id="searchClose" class="search-close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="search-results" id="searchResults"></div>
+        </div>
+
+        <!-- Settings Sidebar -->
+        <div class="settings-sidebar" id="settingsSidebar">
+            <div class="settings-header">
+                <h2>⚙️ الإعدادات</h2>
+                <button class="close-sidebar" id="closeSidebar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="settings-content">
+                <!-- Theme Section -->
+                <div class="settings-section">
+                    <h3><i class="fas fa-palette"></i> الثيم والمظهر</h3>
+                    <div class="settings-option">
+                        <label>
+                            <input type="radio" name="theme" value="dark" checked>
+                            <span>الوضع الداكن 🌙</span>
+                        </label>
+                    </div>
+                    <div class="settings-option">
+                        <label>
+                            <input type="radio" name="theme" value="light">
+                            <span>الوضع الفاتح ☀️</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Quality Section -->
+                <div class="settings-section">
+                    <h3><i class="fas fa-video"></i> جودة البث الافتراضية</h3>
+                    <select id="defaultQuality" class="settings-select">
+                        <option value="4K">4K - أعلى جودة</option>
+                        <option value="1080p">1080p - Full HD</option>
+                        <option value="720p" selected>720p - HD</option>
+                        <option value="480p">480p - جودة عالية</option>
+                        <option value="360p">360p - جودة عادية</option>
+                    </select>
+                </div>
+
+                <!-- Language Section -->
+                <div class="settings-section">
+                    <h3><i class="fas fa-globe"></i> اللغة</h3>
+                    <select id="language" class="settings-select">
+                        <option value="ar" selected>العربية 🇸🇦</option>
+                        <option value="en">English 🇺🇸</option>
+                    </select>
+                </div>
+
+                <!-- Notifications Section -->
+                <div class="settings-section">
+                    <h3><i class="fas fa-bell"></i> الإشعارات</h3>
+                    <div class="settings-option">
+                        <label>
+                            <input type="checkbox" id="notificationToggle" checked>
+                            <span>تفعيل الإشعارات والتنبيهات</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Autoplay Section -->
+                <div class="settings-section">
+                    <h3><i class="fas fa-play"></i> التشغيل التلقائي</h3>
+                    <div class="settings-option">
+                        <label>
+                            <input type="checkbox" id="autoplayToggle">
+                            <span>تشغيل الفيديو تلقائياً</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Server Settings Section -->
+                <div class="settings-section">
+                    <h3><i class="fas fa-server"></i> إعدادات خادم البث</h3>
+                    <div class="settings-input">
+                        <label>رابط الخادم (Host)</label>
+                        <input type="text" id="serverHost" placeholder="http://longsat.xyz:80" class="input-field">
+                    </div>
+                    <div class="settings-input">
+                        <label>اسم المستخدم (Username)</label>
+                        <input type="text" id="serverUser" placeholder="delfraissy" class="input-field">
+                    </div>
+                    <div class="settings-input">
+                        <label>كلمة المرور (Password)</label>
+                        <input type="password" id="serverPass" placeholder="••••••••" class="input-field">
+                    </div>
+                    <button class="btn-save-settings" id="saveServerSettings">💾 حفظ الإعدادات</button>
+                </div>
+
+                <!-- Storage Management Section -->
+                <div class="settings-section">
+                    <h3><i class="fas fa-trash"></i> إدارة التخزين</h3>
+                    <button class="btn-danger" id="clearCache">🗑️ مسح الذاكرة المؤقتة</button>
+                    <button class="btn-danger" id="clearHistory">📜 مسح السجل</button>
+                </div>
+
+                <!-- Download App Section -->
+                <div class="settings-section">
+                    <h3><i class="fas fa-download"></i> تثبيت التطبيق</h3>
+                    <button class="btn-save-settings" id="installBtn" style="display: none;">📱 تثبيت التطبيق</button>
+                    <p style="color: #b0b3c1; font-size: 12px; margin-top: 10px;">يمكنك تثبيت التطبيق على شاشتك الرئيسية للوصول السريع</p>
+                </div>
+
+                <!-- About Section -->
+                <div class="settings-section">
+                    <h3><i class="fas fa-info-circle"></i> عن التطبيق</h3>
+                    <p class="about-text">
+                        <strong>🎬 Faisal TV</strong><br>
+                        الإصدار: 2.0.0 (Mobile)<br>
+                        نوع: تطبيق بث مباشر احترافي<br>
+                        <br>
+                        <a href="https://t.me/FAISALDz44" class="about-link" target="_blank">
+                            📱 تابعنا على تليجرام: @FAISALDz44
+                        </a>
+                        <br><br>
+                        <small>جميع الحقوق محفوظة © 2024</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs">
+            <button class="tab-btn active" data-category="channels">
+                <i class="fas fa-tv"></i>
+                <span>القنوات</span>
+            </button>
+            <button class="tab-btn" data-category="movies">
+                <i class="fas fa-film"></i>
+                <span>الأفلام</span>
+            </button>
+            <button class="tab-btn" data-category="series">
+                <i class="fas fa-play-circle"></i>
+                <span>المسلسلات</span>
+            </button>
+            <button class="tab-btn" data-category="sports">
+                <i class="fas fa-football-ball"></i>
+                <span>الرياضة</span>
+            </button>
+            <button class="tab-btn" data-category="news">
+                <i class="fas fa-newspaper"></i>
+                <span>الأخبار</span>
+            </button>
+        </nav>
+
+        <!-- Subcategories (Sports) -->
+        <div class="subcategory-container" id="subcategory" style="display:none;">
+            <div class="subcategory-scroll">
+                <button class="subcategory-btn active" data-subcategory="all">الكل</button>
+                <button class="subcategory-btn" data-subcategory="bein">beIN Sports</button>
+                <button class="subcategory-btn" data-subcategory="ssc">SSC</button>
+                <button class="subcategory-btn" data-subcategory="aloroba">الرياضة العربية</button>
+                <button class="subcategory-btn" data-subcategory="premier">البريميير</button>
+                <button class="subcategory-btn" data-subcategory="la-liga">لا ليجا</button>
+            </div>
+        </div>
+
+        <!-- Content Grid -->
+        <main class="content-grid" id="contentGrid">
+            <!-- Channels will be populated here -->
+        </main>
+
+        <!-- Video Player Modal -->
+        <div class="player-modal" id="playerModal">
+            <div class="player-container">
+                <!-- Video Player -->
+                <video id="videoPlayer" class="video-player" playsinline controls>
+                    <source src="" type="application/x-mpegURL">
+                    المتصفح الخاص بك لا يدعم مشغل الفيديو
+                </video>
+
+                <!-- Player Controls -->
+                <div class="player-controls" id="playerControls">
+                    <button class="control-btn" id="backBtn" title="رجوع للقائمة">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <button class="control-btn" id="qualityBtn" title="تغيير الجودة">
+                        <i class="fas fa-cog"></i>
+                        <span>720p</span>
+                    </button>
+                    <button class="control-btn" id="fullscreenBtn" title="ملء الشاشة">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                </div>
+
+                <!-- Channel Information -->
+                <div class="player-info">
+                    <h2 id="channelName">اسم القناة</h2>
+                    <p id="channelDesc">الوصف</p>
+                </div>
+            </div>
+
+            <!-- Exit Confirmation -->
+            <div class="exit-modal" id="exitModal" style="display:none;">
+                <div class="exit-content">
+                    <div class="exit-emoji">😢</div>
+                    <p>هل تريد الخروج من التطبيق؟</p>
+                    <div class="exit-buttons">
+                        <button id="exitYes" class="btn-yes">نعم، أخرج</button>
+                        <button id="exitNo" class="btn-no">لا، عد للتطبيق</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quality Selection Modal -->
+        <div class="quality-modal" id="qualityModal" style="display:none;">
+            <div class="quality-content">
+                <h3>📺 اختر جودة البث</h3>
+                <div class="quality-options">
+                    <button class="quality-option" data-quality="4K">4K Ultra HD</button>
+                    <button class="quality-option" data-quality="1080p">1080p Full HD</button>
+                    <button class="quality-option active" data-quality="720p">720p HD</button>
+                    <button class="quality-option" data-quality="480p">480p</button>
+                    <button class="quality-option" data-quality="360p">360p</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification Toast -->
+        <div class="notification-toast" id="notificationToast"></div>
+
+        <!-- Footer Navigation -->
+        <footer class="footer">
+            <button class="footer-btn" id="homeBtn">
+                <i class="fas fa-home"></i>
+                <span>الرئيسية</span>
+            </button>
+            <button class="footer-btn" id="favoritesBtn">
+                <i class="fas fa-heart"></i>
+                <span>المفضلة</span>
+            </button>
+            <button class="footer-btn" id="historyBtn">
+                <i class="fas fa-history"></i>
+                <span>السجل</span>
+            </button>
+            <button class="footer-btn" id="downloadBtn">
+                <i class="fas fa-download"></i>
+                <span>تحميل</span>
+            </button>
+            <button class="footer-btn" id="settingsBtn">
+                <i class="fas fa-cog"></i>
+                <span>إعدادات</span>
+            </button>
+        </footer>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+    <script src="pwa.js"></script>
+</body>
+</html>
