@@ -1,0 +1,59 @@
+<!-- Video Player Modal -->
+<div class="player-modal" id="playerModal">
+    <div class="player-container">
+        <!-- Video Player -->
+        <video id="videoPlayer" class="video-player" playsinline controls>
+            <source src="" type="application/x-mpegURL">
+            المتصفح الخاص بك لا يدعم مشغل الفيديو
+        </video>
+
+        <!-- Top Controls (Right: Back, Left: Fullscreen) -->
+        <div class="player-top-controls">
+            <button class="control-btn-top" id="backBtnTop" title="رجوع للقائمة">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <button class="control-btn-top" id="fullscreenBtnTop" title="ملء الشاشة">
+                <i class="fas fa-expand"></i>
+            </button>
+        </div>
+
+        <!-- Bottom Right Quality Control -->
+        <div class="player-bottom-controls">
+            <button class="control-btn-bottom" id="qualityBtnBottom" title="الجودة">
+                <i class="fas fa-cog"></i>
+            </button>
+        </div>
+
+        <!-- Quality Selection Modal -->
+        <div class="quality-modal" id="qualityModal">
+            <div class="quality-content">
+                <h3>جودة البث</h3>
+                <div class="quality-options">
+                    <button class="quality-option" data-quality="4K">4K</button>
+                    <button class="quality-option" data-quality="1080p">1080p</button>
+                    <button class="quality-option active" data-quality="720p">720p</button>
+                    <button class="quality-option" data-quality="480p">480p</button>
+                    <button class="quality-option" data-quality="360p">360p</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Channel Information -->
+        <div class="player-info">
+            <h2 id="channelName">اسم القناة</h2>
+            <p id="channelDesc">الوصف</p>
+        </div>
+
+        <!-- Exit Confirmation -->
+        <div class="exit-modal" id="exitModal" style="display:none;">
+            <div class="exit-content">
+                <div class="exit-emoji">😢</div>
+                <p>هل تريد الخروج من التطبيق؟</p>
+                <div class="exit-buttons">
+                    <button id="exitYes" class="btn-yes">نعم، أخرج</button>
+                    <button id="exitNo" class="btn-no">لا، عد للتطبيق</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
